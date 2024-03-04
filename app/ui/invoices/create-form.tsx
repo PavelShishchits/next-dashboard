@@ -15,10 +15,8 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(createInvoice, initialState);
 
-  console.log(state);
-
   return (
-    <form action={dispatch}>
+    <form action={dispatch} aria-describedby="form-error-message">
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
@@ -130,11 +128,11 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             ))}
           </div>
         </fieldset>
-        <div id="status-error" aria-live="polite" aria-atomic="true">
-          {state.message ? (
+        {state.message ? (
+          <div id="form-error-message" aria-live="polite" aria-atomic="true">
             <p className="mt-2 text-sm text-red-500">{state.message}</p>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link
